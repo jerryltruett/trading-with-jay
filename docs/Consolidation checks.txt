@@ -1,0 +1,17 @@
+Consolidation verified on October 3, 2026.
+
+69 website, template, image, and lesson files match the previous active copy.
+All 15 database tables match the copied snapshot, preserving all 4 accounts.
+The existing signing key and local account details were preserved unchanged.
+All 13 city and lesson images passed image integrity checks.
+All 23 application tests passed with the bundled runtime.
+Django's system check passed.
+Python and every required installed package loaded from this folder while
+running outside the project directory in isolated mode.
+The relative launch shortcut successfully served the homepage and its assets
+at http://127.0.0.1:8002/.
+
+The earlier project copies were left in place. This local copy no longer uses
+them or the Codex Python cache. Keep this entire folder together.
+This verification covers local operation; public hosting and remote streaming
+still require production deployment preparation.

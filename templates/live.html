@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Live with Jay · Trading with Jay{% endblock %}
+{% block body_class %}city-page city-studio{% endblock %}
+{% block head %}{{ block.super }}<link rel="stylesheet" href="{% static 'member-theme.css' %}?v=city-system-09">{% endblock %}
+{% block content %}
+<section class="jay-wrap studio-heading">
+  <div>
+    <p class="page-kicker">Live sessions / Camera and screen sharing</p>
+    <h1>Enter the<br><span>live room.</span></h1>
+    <p>Watch market walkthroughs, review charts, and ask questions as Jay explains his process.</p>
+  </div>
+  <span class="studio-state-tag" id="studio-room-status" aria-live="polite">Checking the room…</span>
+</section>
+
+<div class="jay-wrap studio-layout" id="live-studio" data-authenticated="{% if user.is_authenticated %}true{% else %}false{% endif %}" data-can-host="{% if can_host %}true{% else %}false{% endif %}">
+  <div class="studio-main">
+    <section class="panel studio-broadcast" aria-labelledby="studio-session-title">
+      <div class="studio-stage" id="studio-stage">
+        <video id="studio-main-video" playsinline autoplay muted aria-label="Live session video"></video>
+        <video id="studio-camera-video" class="studio-camera-overlay" playsinline autoplay muted hidden aria-label="Jay’s camera preview"></video>
+        <div class="studio-state-layer" id="studio-state-layer">
+          <span class="studio-offline-mark" aria-hidden="true">J.</span>
+          <p class="page-kicker" id="studio-stage-kicker">Live session</p>
+          <h2 id="studio-stage-title">The room is offline.</h2>
+          <p id="studio-stage-copy">The next live session will appear here.</p>
+          {% if not user.is_authenticated %}<a class="jay-button" href="{% url 'join' %}">Join the community <span aria-hidden="true">↗</span></a>{% endif %}
+        </div>
+        <span class="studio-video-label" id="studio-video-label" hidden>Private preview</span>
+      </div>
+      <div class="studio-session-meta">
+        <div><p class="page-kicker">Live camera or screen share</p><h2 id="studio-session-title">Trading with Jay — live session</h2></div>
+        <p class="studio-host-name" id="studio-host-name">Hosted by Jay</p>
+      </div>
+      <p class="studio-message" id="studio-message" role="status" aria-live="polite" hidden></p>
+      {% if user.is_authenticated %}
+      <div class="studio-viewer-controls" id="studio-viewer-controls" {% if can_host %}hidden{% endif %}>
+        <button class="jay-button" id="studio-watch" type="button" disabled>Watch live</button>
+        <button class="jay-button jay-button-secondary" id="studio-play" type="button" hidden>Play video with sound</button>
+        <button class="jay-button jay-button-secondary" id="studio-leave" type="button" hidden>Leave session</button>
+        <p id="studio-viewer-hint">There isn’t an active broadcast yet.</p>
+      </div>
+      {% endif %}
+    </section>
+
+    {% if can_host %}
+    <section class="panel studio-host-controls" aria-labelledby="studio-host-controls-title">
+      <div class="studio-control-heading"><div><p class="page-kicker">Broadcast desk</p><h2 id="studio-host-controls-title">Prepare your session.</h2></div><span class="studio-private-label">Preview first. Go live when ready.</span></div>
+      <label class="studio-input-label" for="studio-title-input">Session title</label>
+      <div class="studio-title-row"><input id="studio-title-input" type="text" maxlength="120" value="Trading with Jay — live session" autocomplete="off"><button class="jay-button jay-button-secondary" id="studio-save-title" type="button" disabled>Update title</button></div>
+      <div class="studio-control-row">
+        <button class="jay-button jay-button-secondary" id="studio-camera" type="button">Enable camera &amp; mic</button>
+        <button class="jay-button jay-button-secondary" id="studio-screen" type="button">Share screen</button>
+        <button class="jay-button jay-button-secondary" id="studio-mic" type="button" disabled aria-pressed="false">Mute microphone</button>
+        <button class="jay-button" id="studio-start" type="button" disabled>Go live</button>
+        <button class="jay-button jay-button-secondary" id="studio-stop" type="button" disabled>End broadcast</button>
+      </div>
+      <p class="studio-control-help">Camera and screen access begin only when you choose a control. Your preview stays private until you select Go live. Screen sharing replaces your camera in the broadcast; the small camera preview is visible only to you. Your camera microphone stays on unless you mute it. Audio from other apps is not shared.</p>
+    </section>
+    {% endif %}
+
+    <section class="panel studio-discussion" aria-label="Session conversation and notes">
+      <div class="studio-tabs" role="tablist" aria-label="Session panels">
+        <button id="studio-chat-tab" type="button" role="tab" aria-selected="true" aria-controls="session-chat" tabindex="0">Session chat <span aria-hidden="true">↗</span></button>
+        <button id="studio-notes-tab" type="button" role="tab" aria-selected="false" aria-controls="session-notes" tabindex="-1">Session notes <span aria-hidden="true">↗</span></button>
+      </div>
+      <div id="session-chat" class="studio-panel" role="tabpanel" aria-labelledby="studio-chat-tab">
+        {% if user.is_authenticated %}
+        <div class="studio-chat-feed" id="studio-chat-feed" role="log" aria-live="polite" aria-relevant="additions" aria-label="Session chat messages"><p class="studio-chat-empty" id="studio-chat-empty">No messages yet. Ask a question during a live session.</p></div>
+        <form class="studio-chat-form" id="studio-chat-form">
+          {% csrf_token %}
+          <label class="sr-only" for="studio-chat-input">Your message</label>
+          <textarea id="studio-chat-input" name="body" maxlength="1000" rows="2" placeholder="Ask a question. Share a thought." disabled required></textarea>
+          <button class="jay-button" id="studio-chat-send" type="submit" disabled>Send <span aria-hidden="true">↗</span></button>
+        </form>
+        <p class="studio-chat-help" id="studio-chat-help">Chat opens during a live session. Keep it helpful and respectful.</p>
+        {% else %}
+        <div class="studio-member-prompt"><p class="page-kicker">Watch and take part</p><h3>Join the session.</h3><p>Create your account to watch live sessions and join the chat.</p><a class="jay-button" href="{% url 'join' %}">Join the community <span aria-hidden="true">↗</span></a><a class="studio-text-link" href="{% url 'login' %}">Already a member? Sign in</a></div>
+        {% endif %}
+      </div>
+      <div id="session-notes" class="studio-panel" role="tabpanel" aria-labelledby="studio-notes-tab" hidden>
+        <p class="page-kicker">Sample learning notes / Educational examples</p>
+        <h3>A chart is the start of a question.</h3>
+        <div class="studio-notes-grid">
+          <article class="studio-note"><span>01 / Context</span><h4>Zoom out first.</h4><p>Compare a move with the wider trend. A short-term price change can mean something different on a longer chart.</p></article>
+          <article class="studio-note"><span>02 / Levels</span><h4>Mark the places that matter.</h4><p>Look for areas where price has paused or reversed. Treat a level as an observation to examine, rather than a prediction.</p></article>
+          <article class="studio-note"><span>03 / Risk</span><h4>Know the downside.</h4><p>Write down what would invalidate an idea and what you could lose before considering a trade.</p></article>
+        </div>
+        <p class="studio-note-disclaimer">These are sample educational notes, not a session transcript or a recommendation to buy or sell.</p>
+      </div>
+    </section>
+  </div>
+
+  <aside class="panel studio-community" aria-label="Community channels">
+    <div class="studio-community-brand"><span aria-hidden="true">J.</span><div><strong>Trading with Jay</strong><p>The community</p></div></div>
+    <p class="page-kicker">Live room</p>
+    <a class="studio-channel is-active" href="#studio-stage" aria-current="page"><span aria-hidden="true">◉</span> live-with-jay</a>
+    <button class="studio-channel" type="button" data-studio-panel="chat"><span aria-hidden="true">#</span> session-chat</button>
+    <button class="studio-channel" type="button" data-studio-panel="notes"><span aria-hidden="true">#</span> session-notes</button>
+    <p class="page-kicker">Keep learning</p>
+    <a class="studio-channel" href="{% url 'members' %}"><span aria-hidden="true">#</span> member-lounge</a>
+    <a class="studio-channel" href="/library/"><span aria-hidden="true">#</span> lesson-library</a>
+    <a class="studio-channel" href="{% url 'home' %}#jay"><span aria-hidden="true">↗</span> meet-jay</a>
+    <div class="studio-community-note"><span class="studio-dot" aria-hidden="true"></span><p>One place to watch, ask questions, and keep learning.</p></div>
+  </aside>
+</div>
+{{ ice_servers|json_script:"studio-ice-servers" }}
+{% endblock %}
+{% block scripts %}{{ block.super }}<script src="{% static 'studio.js' %}" defer></script>{% endblock %}

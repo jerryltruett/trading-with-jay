@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sign in · Trading with Jay{% endblock %}
+{% block body_class %}city-page city-auth{% endblock %}
+{% block head %}{{ block.super }}<link rel="stylesheet" href="{% static 'auth-theme.css' %}?v=city-system-09">{% endblock %}
+{% block content %}
+<div class="auth-layout jay-wrap">
+  <div class="auth-story">
+    <p class="page-kicker">YOUR PEOPLE. YOUR PERSPECTIVE.</p>
+    <h1>WELCOME<br><em>BACK.</em></h1>
+    <p>The conversations, the live sessions, and the ideas worth coming back to. All in one place.</p>
+    <div class="auth-perspective" aria-hidden="true">
+      <span class="auth-perspective-label">A BROADER VIEW. A NEW PERSPECTIVE.</span>
+      <svg viewBox="0 0 520 150" focusable="false"><path class="auth-chart-grid" d="M0 30H520M0 75H520M0 120H520"/><path class="auth-chart-line" d="M0 121L37 109L75 118L117 79L160 95L202 54L244 80L291 32L335 58L381 23L421 43L466 12L520 28"/></svg>
+      <strong>IN CONTEXT.</strong>
+    </div>
+  </div>
+  <section class="auth-card" aria-labelledby="login-title">
+    <p class="page-kicker">WELCOME BACK</p>
+    <h2 id="login-title">Continue learning.</h2>
+    <p>Sign in to your member space.</p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {{ form.non_field_errors }}
+      {% for field in form %}<div class="form-field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>{% endfor %}
+      <button class="jay-button" type="submit">Sign in <span aria-hidden="true">↗</span></button>
+    </form>
+    <p class="auth-switch">New to the room? <a href="{% url 'join' %}">Create your login →</a></p>
+  </section>
+</div>
+{% endblock %}

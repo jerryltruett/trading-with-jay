@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Join the room · Trading with Jay{% endblock %}
+{% block body_class %}city-page city-auth{% endblock %}
+{% block head %}{{ block.super }}<link rel="stylesheet" href="{% static 'auth-theme.css' %}?v=city-system-09">{% endblock %}
+{% block content %}
+<div class="auth-layout jay-wrap">
+  <div class="auth-story">
+    <p class="page-kicker">THE CONVERSATION STARTS HERE</p>
+    <h1>YOUR NEXT<br><em>PERSPECTIVE.</em></h1>
+    <p>A member login gives you the live room, session chat, community conversations, and the video library. Choose a username to get started.</p>
+    <div class="auth-perspective" aria-hidden="true">
+      <span class="auth-perspective-label">YOUR COMMUNITY. YOUR PERSPECTIVE.</span>
+      <svg viewBox="0 0 520 150" focusable="false"><path class="auth-chart-grid" d="M0 30H520M0 75H520M0 120H520"/><path class="auth-chart-line" d="M0 121L37 109L75 118L117 79L160 95L202 54L244 80L291 32L335 58L381 23L421 43L466 12L520 28"/></svg>
+      <strong>LOOK CLOSER.</strong>
+    </div>
+  </div>
+  <section class="auth-card" aria-labelledby="join-title">
+    <p class="page-kicker">CREATE YOUR ACCOUNT</p>
+    <h2 id="join-title">Join the community.</h2>
+    <p>Create your member login.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {% for field in form %}<div class="form-field">{{ field.label_tag }}{{ field }}{% if field.help_text %}<div class="help-text">{{ field.help_text|safe }}</div>{% endif %}{{ field.errors }}</div>{% endfor %}
+      <button class="jay-button" type="submit">Join the community <span aria-hidden="true">↗</span></button>
+    </form>
+    <p class="auth-switch">Already a member? <a href="{% url 'login' %}">Sign in →</a></p>
+  </section>
+</div>
+{% endblock %}

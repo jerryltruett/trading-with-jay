@@ -1,0 +1,536 @@
+[
+  {
+    "id": "stocks",
+    "number": 1,
+    "title": "Stock market foundations",
+    "lesson": "What owning a share means",
+    "tag": "The foundations",
+    "artTitle": "Start with the basics.",
+    "level": "Beginner",
+    "duration": 176,
+    "description": "Get familiar with shares, ownership, and how stock prices move.",
+    "takeaways": [
+      "Understand what a share of stock represents.",
+      "Recognize that prices can rise or fall.",
+      "Know that dividends and investment returns are not guaranteed."
+    ],
+    "source": {
+      "label": "Investor.gov · Stocks",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks"
+    },
+    "scenes": [
+      {
+        "title": "What is a share?",
+        "text": "A share of stock represents an ownership interest in a company. A shareholder owns a small piece of that business.",
+        "diagram": "stocks"
+      },
+      {
+        "title": "Why companies issue shares",
+        "text": "Companies may sell shares to raise money for their work and growth. Ownership does not promise a profit.",
+        "diagram": "stocks"
+      },
+      {
+        "title": "Why the price moves",
+        "text": "A stock price changes as buyers and sellers respond to company news, expectations, and broader market conditions.",
+        "diagram": "stocks"
+      },
+      {
+        "title": "A simple gain or loss",
+        "text": "If a share is bought for $50 and sold for $58, the difference is $8 before costs. Selling for $42 instead means an $8 loss.",
+        "diagram": "stocks"
+      },
+      {
+        "title": "Dividends are possible",
+        "text": "Some companies pay part of their earnings to shareholders as dividends. Payments can change or stop, and many stocks pay none.",
+        "diagram": "stocks"
+      },
+      {
+        "title": "Know the risk",
+        "text": "A share can lose value. If a company struggles, an investor can lose part or all of the money invested in its stock.",
+        "diagram": "stocks"
+      },
+      {
+        "title": "Spread your exposure",
+        "text": "Diversification spreads money across investments. It can reduce some risk but cannot guarantee against losses.",
+        "diagram": "stocks"
+      },
+      {
+        "title": "Put it together",
+        "text": "Remember the core ideas: a share is ownership, its market price changes, dividends are uncertain, and risk is always present.",
+        "diagram": "stocks"
+      }
+    ],
+    "extraLessons": [
+      {
+        "number": 2,
+        "title": "Returns, dividends, and real costs",
+        "description": "Work through a stock return and see how costs and dividends change the result.",
+        "duration": 176,
+        "takeaways": [
+          "Separate a price change from total return.",
+          "Subtract trading costs in a simple example.",
+          "Remember that dividends and returns are uncertain."
+        ],
+        "source": {
+          "label": "Investor.gov · Stocks",
+          "url": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks"
+        },
+        "scenes": [
+          {
+            "title": "Price return",
+            "text": "The price difference is the sale price minus the purchase price. A higher sale price alone does not tell the full story.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "An example purchase",
+            "text": "Imagine buying 10 shares for $20 each. The purchase costs $200 before any trading fees.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "An example sale",
+            "text": "If the shares are sold for $23 each, the sale proceeds are $230. The price gain before costs is $30.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Include costs",
+            "text": "Suppose total purchase and sale costs are $4. The example gain after those costs is $26, before taxes.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Consider a dividend",
+            "text": "A company may pay a dividend during ownership. A $0.50 dividend per share on 10 shares would add $5 before taxes.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "A loss scenario",
+            "text": "If the sale price is $17 per share, proceeds are $170. The price loss is $30 before costs or dividends.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "No guaranteed payout",
+            "text": "A company can reduce or stop dividends. Stock prices also move in either direction; a previous gain predicts nothing.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Check the full picture",
+            "text": "Record purchase price, sale price, number of shares, costs, and any distributions before describing a return.",
+            "diagram": "stocks"
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Research a company before investing",
+        "description": "Practice a beginner checklist for understanding a business and its risks.",
+        "duration": 176,
+        "takeaways": [
+          "Explain how the business earns money.",
+          "Check reliable company information and risks.",
+          "Avoid making decisions from one headline."
+        ],
+        "source": {
+          "label": "Investor.gov · Stocks",
+          "url": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/stocks"
+        },
+        "scenes": [
+          {
+            "title": "Begin with the business",
+            "text": "Ask what the company sells, who its customers are, and where its revenue comes from before looking at the share price.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Look at financial reports",
+            "text": "Public companies publish reports with financial results and risk discussions. Read them instead of relying on a headline.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Revenue and profit",
+            "text": "Revenue is money earned from sales. Profit remains after expenses. Growing sales do not guarantee growing profit.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Debt matters",
+            "text": "Borrowing may help a company operate or expand, but debt also creates obligations. Look at the business in context.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Read the risk section",
+            "text": "Competition, costs, regulation, and other events can change a company’s outlook. Risks differ by business.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Compare over time",
+            "text": "One quarter may be unusual. Comparing several periods can reveal changes, though past performance cannot predict the future.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Question the source",
+            "text": "A confident stock tip is not evidence. Check the source and whether the person may benefit from your decision.",
+            "diagram": "stocks"
+          },
+          {
+            "title": "Write a short summary",
+            "text": "In your own words, explain what the company does, one strength, one risk, and what information you still need.",
+            "diagram": "stocks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "charts",
+    "number": 2,
+    "title": "Reading price charts",
+    "lesson": "How to read a candlestick",
+    "tag": "The charts",
+    "artTitle": "See the bigger picture.",
+    "level": "Beginner",
+    "duration": 176,
+    "description": "Learn what the body, wicks, and timeframe of a candle tell you.",
+    "takeaways": [
+      "Identify the open, high, low, and close of a candle.",
+      "Read a candle’s body and wicks.",
+      "Check which time period each candle represents."
+    ],
+    "source": {
+      "label": "CME Group · Chart types",
+      "url": "https://www.cmegroup.com/education/courses/technical-analysis/chart-types-candlestick-line-bar"
+    },
+    "scenes": [
+      {
+        "title": "Four prices in one candle",
+        "text": "A candlestick summarizes the open, high, low, and close for one selected time period.",
+        "diagram": "charts"
+      },
+      {
+        "title": "Start with the body",
+        "text": "The candle body spans the opening and closing prices. Its length shows the difference between those two prices.",
+        "diagram": "charts"
+      },
+      {
+        "title": "Then read the wicks",
+        "text": "The upper wick reaches the period high. The lower wick reaches the period low, beyond the body.",
+        "diagram": "charts"
+      },
+      {
+        "title": "Direction and color",
+        "text": "A close above the open is often shown in green; a close below is often red. Chart color settings can vary.",
+        "diagram": "charts"
+      },
+      {
+        "title": "Choose the timeframe",
+        "text": "A one-minute candle covers one minute. A one-day candle covers one day. Check the scale before drawing conclusions.",
+        "diagram": "charts"
+      },
+      {
+        "title": "Try a worked example",
+        "text": "Suppose open is $50, high is $54, low is $49, and close is $52. The body runs from $50 to $52; wicks reach $49 and $54.",
+        "diagram": "charts"
+      },
+      {
+        "title": "What a candle cannot tell you",
+        "text": "A candle shows a past price range, not what will happen next. One candle alone is a limited picture.",
+        "diagram": "charts"
+      },
+      {
+        "title": "Read it back",
+        "text": "Identify the timeframe, then find open and close in the body and high and low at the tips of the wicks.",
+        "diagram": "charts"
+      }
+    ],
+    "extraLessons": [
+      {
+        "number": 2,
+        "title": "Timeframes and price context",
+        "description": "Compare the same price movement across different chart timeframes.",
+        "duration": 176,
+        "takeaways": [
+          "Read the timeframe and price axis first.",
+          "Understand how candles group prices.",
+          "Avoid predictions from a single candle."
+        ],
+        "source": {
+          "label": "CME Group · Chart types",
+          "url": "https://www.cmegroup.com/education/courses/technical-analysis/chart-types-candlestick-line-bar"
+        },
+        "scenes": [
+          {
+            "title": "Check the chart label",
+            "text": "Before interpreting a chart, identify the instrument, the dates shown, and the time interval represented by each mark.",
+            "diagram": "charts"
+          },
+          {
+            "title": "One period, four prices",
+            "text": "A daily candle summarizes one trading day. An hourly candle summarizes one hour of prices.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Zoom changes the picture",
+            "text": "A short chart may show a sharp move. A longer view can reveal that the move is small relative to earlier changes.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Axes set the scale",
+            "text": "Read the price values on the vertical axis. A narrow displayed range can make a modest move look dramatic.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Compare equal intervals",
+            "text": "A series of candles is only comparable after checking that the interval stays the same throughout the view.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Gaps can appear",
+            "text": "A new period can open above or below the previous close. The chart may show a gap between those prices.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Past does not predict",
+            "text": "A chart is a record of earlier transactions. A visual pattern alone cannot promise the next price.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Read the context",
+            "text": "State the timeframe, start and end dates, and observed price range before offering an interpretation.",
+            "diagram": "charts"
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Volume and chart limitations",
+        "description": "Learn what trading volume counts and what it cannot explain about a price move.",
+        "duration": 176,
+        "takeaways": [
+          "Define volume as traded shares for a period.",
+          "Compare volume across matching periods.",
+          "Separate observation from a trading prediction."
+        ],
+        "source": {
+          "label": "Nasdaq · Volume definition",
+          "url": "https://www.nasdaq.com/glossary/b/volume"
+        },
+        "scenes": [
+          {
+            "title": "What volume measures",
+            "text": "Stock trading volume is the number of shares traded over a chosen period. It does not count unique investors.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Match the periods",
+            "text": "An hourly volume bar counts activity for that hour. Compare bars using the same length of time.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Price and activity",
+            "text": "A price move with high volume shows many shares traded. The bar alone does not explain why traders acted.",
+            "diagram": "charts"
+          },
+          {
+            "title": "A low-volume example",
+            "text": "A price can move while few shares trade. Do not assume that a quiet bar means the price will reverse.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Read the labels",
+            "text": "Check whether the chart reports shares, contracts, or another measure. Check whether the period is complete.",
+            "diagram": "charts"
+          },
+          {
+            "title": "News can shift interest",
+            "text": "Company announcements and broad market events may change both price and volume. Verify the actual event.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Limits of a chart",
+            "text": "Historical price and volume do not reveal every investor’s reason or guarantee a future direction.",
+            "diagram": "charts"
+          },
+          {
+            "title": "Use a careful summary",
+            "text": "Describe what changed, the timeframe, and the volume shown. Then separately note what remains unknown.",
+            "diagram": "charts"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "orders",
+    "number": 3,
+    "title": "Order types & risk",
+    "lesson": "Market, limit, and stop orders",
+    "tag": "The decisions",
+    "artTitle": "Know your next move.",
+    "level": "Beginner",
+    "duration": 176,
+    "description": "Understand three common order types and their trade-offs.",
+    "takeaways": [
+      "Distinguish market, limit, and stop orders.",
+      "Understand why an execution price can change.",
+      "Recognize that a limit order may never be filled."
+    ],
+    "source": {
+      "label": "Investor.gov · Types of orders",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/how-stock-markets-work/types-orders"
+    },
+    "scenes": [
+      {
+        "title": "An order is an instruction",
+        "text": "An order tells a broker to try to buy or sell. The type you select changes the trade-off between speed and price control.",
+        "diagram": "orders"
+      },
+      {
+        "title": "Market order",
+        "text": "A market order seeks prompt execution at available prices. It does not guarantee the price you will receive.",
+        "diagram": "orders"
+      },
+      {
+        "title": "Buy limit order",
+        "text": "A buy limit of $50 sets $50 as the most you will pay per share. The order may not execute if a seller is not available at that price.",
+        "diagram": "orders"
+      },
+      {
+        "title": "Sell limit order",
+        "text": "A sell limit of $55 sets $55 as the least you will accept per share. The order can remain unfilled.",
+        "diagram": "orders"
+      },
+      {
+        "title": "Stop order",
+        "text": "When the stop price is reached, a stop order becomes a market order. The eventual execution price can differ from the stop price.",
+        "diagram": "orders"
+      },
+      {
+        "title": "Stop-limit order",
+        "text": "A stop-limit order becomes a limit order once triggered. It adds price control but may never execute.",
+        "diagram": "orders"
+      },
+      {
+        "title": "Review before submitting",
+        "text": "Check the action, number of shares, order type, and price fields. Broker choices and order duration may vary.",
+        "diagram": "orders"
+      },
+      {
+        "title": "Compare the trade-offs",
+        "text": "Market focuses on execution, limit focuses on a price boundary, and stop adds a trigger. No order type eliminates market risk.",
+        "diagram": "orders"
+      }
+    ],
+    "extraLessons": [
+      {
+        "number": 2,
+        "title": "Bid, ask, and the spread",
+        "description": "Read a quoted market and see why the displayed price may differ from a fill.",
+        "duration": 176,
+        "takeaways": [
+          "Identify the bid and ask.",
+          "Calculate a simple spread.",
+          "Recognize that quotes can change before execution."
+        ],
+        "source": {
+          "label": "Investor.gov · Understanding order types",
+          "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-14"
+        },
+        "scenes": [
+          {
+            "title": "Two sides of a quote",
+            "text": "The bid is a displayed buying price. The ask is a displayed selling price. The values can change quickly.",
+            "diagram": "orders"
+          },
+          {
+            "title": "A simple quote",
+            "text": "Suppose a stock displays a $49.90 bid and a $50.10 ask. The quoted difference, or spread, is $0.20.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Buying at the ask",
+            "text": "A market buy generally seeks available shares from sellers. The current ask is a useful reference, not a promised fill.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Selling at the bid",
+            "text": "A market sell generally seeks an available buyer. The current bid is a reference and can change.",
+            "diagram": "orders"
+          },
+          {
+            "title": "The spread is a cost",
+            "text": "Buying at $50.10 and immediately selling at $49.90 would lose $0.20 per share in this simple unchanged-quote example.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Size and movement",
+            "text": "A displayed quote may cover only some shares. A larger order or fast-moving market may reach different available prices.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Limit price control",
+            "text": "A limit order sets a price boundary. It may sit unfilled when the market never reaches an available matching price.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Review before sending",
+            "text": "Check the bid, ask, quantity, order type, and the possibility that the quote changes before execution.",
+            "diagram": "orders"
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "title": "Planning risk before an order",
+        "description": "Use a hypothetical order to practice sizing, price boundaries, and review.",
+        "duration": 176,
+        "takeaways": [
+          "Calculate a basic exposure amount.",
+          "Understand stop execution limits.",
+          "Review the order and risk before submitting."
+        ],
+        "source": {
+          "label": "Investor.gov · Asset allocation and diversification",
+          "url": "https://www.investor.gov/introduction-investing/getting-started/asset-allocation"
+        },
+        "scenes": [
+          {
+            "title": "Start with exposure",
+            "text": "If you buy 5 shares at $40, the starting purchase amount is $200 before costs. Decide what loss you can afford.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Price can fall",
+            "text": "A fall from $40 to $35 is a $5 loss per share, or $25 on 5 shares before any costs. Losses can be larger.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Stops have limits",
+            "text": "A stop order becomes a market order when triggered. Its eventual execution price may be worse than the stop price.",
+            "diagram": "orders"
+          },
+          {
+            "title": "A stop-limit trade-off",
+            "text": "A stop-limit order adds a limit price after the trigger, but the order might never fill if prices move past it.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Diversify thoughtfully",
+            "text": "Putting all funds into one stock concentrates risk. Spreading exposure may reduce some risk without removing it.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Check order details",
+            "text": "Verify buy or sell, ticker, number of shares, order type, entered prices, and the broker’s displayed estimate.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Plan for uncertainty",
+            "text": "Prices, fees, and available liquidity can change. A plan should allow for outcomes beyond the example numbers.",
+            "diagram": "orders"
+          },
+          {
+            "title": "Pause and summarize",
+            "text": "State your order, expected exposure, main risk, and why the chosen order type fits your goal before submitting.",
+            "diagram": "orders"
+          }
+        ]
+      }
+    ]
+  }
+]

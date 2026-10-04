@@ -1,0 +1,154 @@
+/* Keep Django's layouts and controls, with the same city setting as the site. */
+:root,html[data-theme=light],html[data-theme=dark]{
+ color-scheme:dark;
+ --primary:#c5fa55;
+ --secondary:rgb(25 28 30 / 20%);
+ --accent:#c5fa55;
+ --primary-fg:#101213;
+ --body-fg:#e6ece7;
+ --body-bg:rgb(16 18 19 / 20%);
+ --body-quiet-color:#b5c6ba;
+ --body-medium-color:#d0dad3;
+ --body-loud-color:#f3f2ec;
+ --header-color:#c5fa55;
+ --header-branding-color:#f3f2ec;
+ --header-bg:#101213;
+ --header-link-color:#d8e4dc;
+ --breadcrumbs-fg:#bdcfc2;
+ --breadcrumbs-link-fg:#c5fa55;
+ --breadcrumbs-bg:rgb(25 28 30 / 20%);
+ --link-fg:#c5fa55;
+ --link-hover-color:#dbff95;
+ --link-selected-fg:#c5fa55;
+ --hairline-color:#c1d4ca35;
+ --border-color:#c1d4ca60;
+ --error-fg:#ffb8ae;
+ --message-success-bg:rgb(197 250 85 / 20%);
+ --message-warning-bg:rgb(228 178 59 / 20%);
+ --message-error-bg:rgb(234 115 97 / 20%);
+ --darkened-bg:rgb(25 28 30 / 20%);
+ --selected-bg:rgb(197 250 85 / 20%);
+ --selected-row:rgb(197 250 85 / 20%);
+ --button-fg:#101213;
+ --button-bg:#c5fa55;
+ --button-hover-bg:#dbff95;
+ --default-button-bg:#c5fa55;
+ --default-button-hover-bg:#dbff95;
+ --close-button-bg:#d0dad3;
+ --close-button-hover-bg:#e8efe9;
+ --delete-button-bg:#ef8c85;
+ --delete-button-hover-bg:#ffaea8;
+ --object-tools-fg:#101213;
+ --object-tools-bg:#c5fa55;
+ --object-tools-hover-bg:#dbff95;
+ --font-family-primary:Arial,Helvetica,system-ui,sans-serif;
+}
+html{scroll-padding-top:115px}
+body.city-admin{background:#101213;color:#f3f2ec;isolation:isolate;min-height:100vh;height:auto}
+.city-admin .city-backdrop{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.city-admin .city-background{position:absolute;inset:0;background:url('/static/city-studio.png') center 58%/cover no-repeat}
+.city-admin .city-backdrop:before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#101213ed 0%,#101213b5 48%,#10121380 100%),linear-gradient(0deg,#101213ed,transparent 50%,#10121355)}
+.city-admin .city-light{position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse at 74% 38%,#71d5ec10,transparent 40%)}
+.city-admin .pointer-cross{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.city-admin .pointer-cross path{fill:none;stroke-width:1;vector-effect:non-scaling-stroke}
+.city-admin .cross-one{stroke:#dcf3e73b}
+.city-admin .cross-two{stroke:#c5fa5555}
+.city-admin .pointer-cross circle{fill:#c5fa55;opacity:.5}
+.city-admin #container{position:relative;z-index:0;min-height:100vh;background:transparent}
+.city-admin #header{position:sticky;top:0;z-index:30;background:#101213;border-bottom:1px solid #ffffff20;padding:23px clamp(22px,4.5vw,72px);min-height:50px;gap:25px;flex-wrap:wrap}
+.city-admin #site-name{display:flex;align-items:center;gap:25px;margin:0;font-size:1rem;line-height:1.05;font-weight:800;letter-spacing:-.025em}
+.city-admin .jay-admin-brand{display:flex;align-items:center;gap:12px;color:#f3f2ec!important;text-decoration:none}
+.city-admin .jay-admin-symbol{position:relative;display:block;width:40px;font-size:2.7rem;font-weight:800;line-height:.7;letter-spacing:-.1em;color:#c5fa55}
+.city-admin .jay-admin-symbol>span{position:absolute;right:-4px;top:-1px;font-size:1.8rem;line-height:1}
+.city-admin .jay-admin-name{font-size:.97rem;line-height:1.05;font-weight:800;letter-spacing:-.02em}
+.city-admin .jay-admin-name>span{color:#c5fa55}
+.city-admin #site-name small{display:block;max-width:135px;color:#bccbc2;font-size:.48rem;font-weight:700;line-height:1.75;letter-spacing:.13em}
+.city-admin #user-tools{font-size:.65rem;line-height:1.9;letter-spacing:.035em;margin:0}
+.city-admin #user-tools a,.city-admin #logout-form button{border-bottom-color:#ffffff40;text-decoration:none}
+.city-admin .jay-admin-home{color:#c5fa55!important;font-size:.72rem;font-weight:700;line-height:1.6;white-space:nowrap}
+.city-admin .breadcrumbs{background:rgb(25 28 30 / 20%);border-bottom:1px solid #c1d4ca35;padding:15px clamp(22px,4.5vw,72px);font-size:.7rem}
+.city-admin #content{padding:40px clamp(22px,4.5vw,72px);min-width:0}
+.city-admin #content h1{font-size:clamp(2.4rem,4.3vw,4.3rem);line-height:.96;font-weight:800;letter-spacing:-.065em;margin-bottom:35px;color:#f3f2ec}
+.city-admin #content h2{font-weight:750;letter-spacing:-.035em;color:#dfe8e1}
+.city-admin .module,.city-admin .inline-group,.city-admin .submit-row{background:rgb(25 28 30 / 20%);border:1px solid #c1d4ca35;border-radius:2px;overflow:visible}
+.city-admin .module h2,.city-admin .module caption,.city-admin .inline-group h2{background:rgb(25 28 30 / 20%);color:#c5fa55;padding:15px 18px;letter-spacing:.05em;font-size:.7rem;line-height:1.7}
+.city-admin .module th,.city-admin .module td{border-bottom-color:#c1d4ca35;padding:13px 18px}
+.city-admin table thead th{background:rgb(25 28 30 / 20%);color:#dce7df;font-size:.66rem;line-height:1.6}
+.city-admin table thead th.sorted{background:rgb(197 250 85 / 20%)}
+.city-admin table tbody tr,.city-admin table tbody tr:nth-child(odd),.city-admin table tbody tr:nth-child(even){background:transparent}
+.city-admin .row1,.city-admin .row2{background:transparent}
+.city-admin #changelist{background:rgb(25 28 30 / 20%);border:1px solid #c1d4ca35;border-radius:2px}
+.city-admin #changelist #toolbar,.city-admin #changelist .actions,.city-admin #changelist .paginator{background:rgb(25 28 30 / 20%);border-color:#c1d4ca35}
+.city-admin #changelist .actions select{color:#e6ece7}
+.city-admin #changelist-filter{background:rgb(25 28 30 / 20%);border-left:1px solid #c1d4ca35}
+.city-admin #changelist-filter h2{background:rgb(25 28 30 / 20%);color:#c5fa55;padding:14px 15px;font-size:.7rem}
+.city-admin #changelist-filter h3,.city-admin #changelist-filter details summary{color:#f3f2ec}
+.city-admin #nav-sidebar{top:var(--admin-header-height,104px);max-height:calc(100vh - var(--admin-header-height,104px));background:rgb(25 28 30 / 20%);border-color:#c1d4ca35}
+.city-admin #nav-sidebar .module{border:0}
+.city-admin #nav-sidebar .current-model{background:rgb(197 250 85 / 20%)}
+.city-admin #toggle-nav-sidebar{top:var(--admin-header-height,104px);max-height:calc(100vh - var(--admin-header-height,104px));background:rgb(25 28 30 / 20%);border-color:#c1d4ca35;color:#c5fa55}
+.city-admin input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]),.city-admin textarea,.city-admin select{background:rgb(16 18 19 / 20%);border:1px solid #bacabd70;color:#f3f2ec;border-radius:2px;padding:10px 12px;font-size:.82rem}
+.city-admin select option,.city-admin optgroup{background:#191c1e;color:#f3f2ec}
+.city-admin input::placeholder,.city-admin textarea::placeholder{color:#bdcbc3;opacity:1}
+.city-admin .form-row{background:transparent;border-color:#c1d4ca35;padding:17px 18px}
+.city-admin .form-row label{color:#e6ece7;font-size:.78rem;font-weight:700}
+.city-admin .help,.city-admin .help a,.city-admin p.help,.city-admin .form-row p{color:#c1cdc6}
+.city-admin .aligned label{line-height:1.5}
+.city-admin .button,.city-admin input[type=submit],.city-admin input[type=button],.city-admin .object-tools a{border-radius:2px;font-weight:750;text-transform:none;padding:12px 17px;background:#c5fa55;color:#101213;line-height:1.5;font-size:.76rem}
+.city-admin .button:hover,.city-admin input[type=submit]:hover,.city-admin .object-tools a:hover{background:#dbff95;color:#101213}
+.city-admin .submit-row{padding:17px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.city-admin .submit-row input{margin:0}
+.city-admin .submit-row a.deletelink{padding:12px 17px;line-height:1.5;height:auto;border-radius:2px;background:#ef8c85;color:#101213}
+.city-admin .submit-row a.deletelink:hover{background:#ffaea8}
+.city-admin .errornote{background:rgb(234 115 97 / 20%);border-color:#ffb8ae;color:#ffb8ae}
+.city-admin .errorlist{color:#ffb8ae}
+.city-admin ul.messagelist li{color:#f3f2ec;border:1px solid #c1d4ca35;line-height:1.8}
+.city-admin #recent-actions-module,.city-admin #content-related{background:rgb(25 28 30 / 20%);border-color:#c1d4ca35}
+.city-admin #content-related{border:1px solid #c1d4ca35;border-radius:2px}
+.city-admin #content-related .module{border:0}
+.city-admin #content-related h2{background:rgb(25 28 30 / 20%)}
+.city-admin :is(a,button,input,textarea,select,summary):focus-visible{outline:3px solid #71d5ec;outline-offset:3px}
+.city-admin .jay-admin-footer{display:flex;justify-content:space-between;align-items:center;gap:25px;border-top:1px solid #ffffff20;padding:25px clamp(22px,4.5vw,72px) 32px;font-size:.47rem;letter-spacing:.11em;color:#c1cdc6}
+.city-admin .jay-admin-footer button{background:rgb(16 18 19 / 20%);border:1px solid #91b69459;color:#cbded0;padding:8px 12px;font:inherit;font-size:.61rem;letter-spacing:.02em;cursor:pointer;line-height:1.4}
+.city-admin .jay-admin-footer button:hover{border-color:#c5fa55;color:#c5fa55}
+/* Admin sign-in retains Django authentication while sharing the site shell. */
+body.city-admin.login{background:#101213}
+.city-admin.login #container{width:100%;max-width:none;margin:0;border:0;border-radius:0;background:transparent;overflow:visible}
+.city-admin.login #header{padding:25px clamp(22px,4.5vw,72px);justify-content:flex-start}
+.city-admin.login #content{max-width:430px;width:calc(100% - 44px);margin:75px auto;padding:30px;box-sizing:border-box;background:rgb(25 28 30 / 20%);border:1px solid #c1d4ca50;border-radius:2px}
+.city-admin.login #content h1{font-size:2.7rem;margin-bottom:28px}
+.city-admin.login .form-row{padding:0;margin-bottom:21px;border:0}
+.city-admin.login .form-row label{font-size:.8rem;margin-bottom:8px;line-height:1.5}
+.city-admin.login .form-row #id_username,.city-admin.login .form-row #id_password{padding:12px;font-size:.88rem;width:100%;height:auto;box-sizing:border-box}
+.city-admin.login .submit-row{padding:0;border:0;background:transparent;display:block;margin-top:27px}
+.city-admin.login .submit-row input{width:100%;box-sizing:border-box}
+.city-admin.login .password-reset-link{color:#c1cdc6}
+@media(max-width:1100px){
+ .city-admin #site-name small{display:none}
+ .city-admin #header{gap:20px}
+ .city-admin #user-tools{margin-left:auto}
+ .city-admin .jay-admin-home{font-size:.66rem}
+}
+@media(max-width:767px){
+ html{scroll-padding-top:100px}
+ .city-admin #header{padding:20px 22px;min-height:42px;gap:17px}
+ .city-admin .jay-admin-name{font-size:.8rem}
+ .city-admin .jay-admin-symbol{font-size:2.5rem;width:34px}
+ .city-admin .jay-admin-symbol>span{font-size:1.55rem;right:-3px}
+ .city-admin #user-tools{font-size:.58rem;padding:0;width:auto;margin:0}
+ .city-admin .jay-admin-home{font-size:.66rem;flex-basis:100%}
+ .city-admin .breadcrumbs{padding:13px 22px;line-height:1.8}
+ .city-admin #content{padding:30px 22px}
+ .city-admin #content h1{font-size:2.7rem;margin-bottom:28px}
+ .city-admin .module th,.city-admin .module td{padding:11px 12px}
+ .city-admin .form-row{padding:15px}
+ .city-admin .aligned .form-row>div{width:100%;max-width:100%;min-width:0}
+ .city-admin .aligned .form-row input,.city-admin .aligned .form-row select,.city-admin .aligned .form-row textarea{box-sizing:border-box}
+ .city-admin .submit-row{gap:10px;padding:15px}
+ .city-admin .jay-admin-footer{padding:22px 22px 28px}
+ .city-admin .jay-admin-footer>span{font-size:.41rem}
+ .city-admin.login #header{padding:23px 22px}
+ .city-admin.login #content{margin:45px auto;padding:25px}
+ .city-admin.login #content h1{font-size:2.5rem}
+ .city-admin .city-background{background-position:62% 50%}
+}

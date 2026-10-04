@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:22.000
+An order is an instruction. An order tells a broker to try to buy or sell. The type you select changes the trade-off between speed and price control.
+
+00:00:22.000 --> 00:00:44.000
+Market order. A market order seeks prompt execution at available prices. It does not guarantee the price you will receive.
+
+00:00:44.000 --> 00:01:06.000
+Buy limit order. A buy limit of $50 sets $50 as the most you will pay per share. The order may not execute if a seller is not available at that price.
+
+00:01:06.000 --> 00:01:28.000
+Sell limit order. A sell limit of $55 sets $55 as the least you will accept per share. The order can remain unfilled.
+
+00:01:28.000 --> 00:01:50.000
+Stop order. When the stop price is reached, a stop order becomes a market order. The eventual execution price can differ from the stop price.
+
+00:01:50.000 --> 00:02:12.000
+Stop-limit order. A stop-limit order becomes a limit order once triggered. It adds price control but may never execute.
+
+00:02:12.000 --> 00:02:34.000
+Review before submitting. Check the action, number of shares, order type, and price fields. Broker choices and order duration may vary.
+
+00:02:34.000 --> 00:02:56.000
+Compare the trade-offs. Market focuses on execution, limit focuses on a price boundary, and stop adds a trigger. No order type eliminates market risk.

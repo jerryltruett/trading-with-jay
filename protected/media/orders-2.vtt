@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:22.000
+Two sides of a quote. The bid is a displayed buying price. The ask is a displayed selling price. The values can change quickly.
+
+00:00:22.000 --> 00:00:44.000
+A simple quote. Suppose a stock displays a $49.90 bid and a $50.10 ask. The quoted difference, or spread, is $0.20.
+
+00:00:44.000 --> 00:01:06.000
+Buying at the ask. A market buy generally seeks available shares from sellers. The current ask is a useful reference, not a promised fill.
+
+00:01:06.000 --> 00:01:28.000
+Selling at the bid. A market sell generally seeks an available buyer. The current bid is a reference and can change.
+
+00:01:28.000 --> 00:01:50.000
+The spread is a cost. Buying at $50.10 and immediately selling at $49.90 would lose $0.20 per share in this simple unchanged-quote example.
+
+00:01:50.000 --> 00:02:12.000
+Size and movement. A displayed quote may cover only some shares. A larger order or fast-moving market may reach different available prices.
+
+00:02:12.000 --> 00:02:34.000
+Limit price control. A limit order sets a price boundary. It may sit unfilled when the market never reaches an available matching price.
+
+00:02:34.000 --> 00:02:56.000
+Review before sending. Check the bid, ask, quantity, order type, and the possibility that the quote changes before execution.

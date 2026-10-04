@@ -1,0 +1,29 @@
+TRADING WITH JAY
+
+This is the complete local website folder.
+
+TO START THE SITE
+1. Double-click "Start Trading with Jay.cmd".
+2. Open http://127.0.0.1:8002/ in your browser.
+3. Keep the launcher window open while using the website.
+
+Your current accounts and site data have been preserved.
+
+KEEP THIS ENTIRE FOLDER TOGETHER
+The .runtime folder contains Python and the website's installed software.
+The private folder contains the account database and local private details.
+The other folders contain the website, city backgrounds, and lesson videos.
+No older project folder or Codex runtime is needed to run this local copy.
+
+GITHUB AND RENDER
+GitHub Desktop will exclude private and .runtime using the included .gitignore.
+Do not manually upload those two folders or share a complete copy publicly.
+The current site is a local preview. Render hosting and reliable internet
+streaming still require the production preparation discussed in this chat.
+
+BACKUP
+Keep a private backup before removing your earlier project copies.
+When the site is running, use a consistent database backup rather than copying
+the database while it is changing.
+
+Further technical notes are in README.md.
