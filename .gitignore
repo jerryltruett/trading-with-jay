@@ -3,6 +3,7 @@ private/
 __pycache__/
 *.pyc
 .venv/
+staticfiles/
 .env*
 !.env.example
 *.sqlite3*
