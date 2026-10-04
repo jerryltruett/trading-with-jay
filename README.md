@@ -138,9 +138,9 @@ because it does not include the hosting packages.
 
 For production validation, set the hosting environment and run
 `python manage.py check --deploy`. Real PostgreSQL migrations, Gunicorn startup
-on Render, HTTPS sign-in, and an end-to-end live room still need validation on
-the hosted service. Keep the public launch gated on those checks and the private
-account import.
+on Render. The four-account import and HTTPS sign-ins were verified on
+2026-10-04. An end-to-end live broadcast and playback session still need
+validation on the hosted service.
 
 
 ## Private QR login cards
@@ -160,17 +160,22 @@ ignored by Git, and never collected into static files. Responses use no-store,
 no-referrer, noindex, frame denial and a restrictive content security policy.
 
 Local previews read the private configuration automatically. Production is
-**disabled by default**. Activating it requires separately approving publication
-of these login details and the existing account transfer. For Render, add a secret
+**disabled by default**. Publication of the selected login details was approved
+and activated on Render on 2026-10-04. For Render, add a secret
 file named `access-cards.json` containing the private configuration and set
 `JAY_ACCESS_CARDS_FILE=/etc/secrets/access-cards.json`. Never commit that file,
 `access-card-links.json`, or QR images. Do not paste private links or passwords
 into deployment logs, screenshots, or source files.
 
-All three QR passwords were checked against the current local account hashes.
-The account database has not been transferred to Render. A card showing login
-details does not itself create a hosted account. After the approved account
-transfer, verify sign-in and role access on the hosted site.
+All three QR passwords were checked against the local account hashes. The
+Study Logins card (Study01 and Study02) and Admin01 Login card (Admin01 only)
+were verified on the hosted site on 2026-10-04. The same day, the four accounts
+were transferred into the confirmed empty Render database in one verified
+transaction, preserving password hashes, IDs and role flags. All four HTTPS
+sign-ins passed: both Study users are members, Admin01 can access the broadcast
+studio, and Admin02 can access Django administration. The hosted user list
+contains exactly these four accounts. No local chat or broadcast history was
+transferred. A card showing details does not itself create an account.
 
 The current local accounts are Admin01 (creator), Admin02 (administrator),
 Study01 and Study02 (members). Fresh demo setup defaults described earlier are
