@@ -141,3 +141,48 @@ For production validation, set the hosting environment and run
 on Render, HTTPS sign-in, and an end-to-end live room still need validation on
 the hosted service. Keep the public launch gated on those checks and the private
 account import.
+
+
+## Private QR login cards
+
+The optional private card page is `/access-card/`. It has no menu links. The two
+labelled codes are in `private/qr-codes/`: Study Logins (Study01 and Study02) and
+Admin01 Login (Admin01 only). Admin02 is not included in either code. These are
+possession-based links: anyone with a code or a copy of its decoded link can read
+the assigned login details. Do not post the QR images publicly.
+
+Each code contains an independent random 256-bit key in the URL fragment. The
+browser removes the fragment, then sends it in a same-origin CSRF-protected POST.
+Keys are absent from request paths, query strings, and normal access logs. The
+server stores only key digests plus the explicitly configured login details in
+`private/access-cards.json`. This additional plaintext password copy is private,
+ignored by Git, and never collected into static files. Responses use no-store,
+no-referrer, noindex, frame denial and a restrictive content security policy.
+
+Local previews read the private configuration automatically. Production is
+**disabled by default**. Activating it requires separately approving publication
+of these login details and the existing account transfer. For Render, add a secret
+file named `access-cards.json` containing the private configuration and set
+`JAY_ACCESS_CARDS_FILE=/etc/secrets/access-cards.json`. Never commit that file,
+`access-card-links.json`, or QR images. Do not paste private links or passwords
+into deployment logs, screenshots, or source files.
+
+All three QR passwords were checked against the current local account hashes.
+The account database has not been transferred to Render. A card showing login
+details does not itself create a hosted account. After the approved account
+transfer, verify sign-in and role access on the hosted site.
+
+The current local accounts are Admin01 (creator), Admin02 (administrator),
+Study01 and Study02 (members). Fresh demo setup defaults described earlier are
+independent of those existing renamed accounts; do not rerun setup to replace them.
+
+To revoke a card, set its `enabled` to false or remove it from the private
+configuration, then replace the active Render secret file and redeploy. An optional
+UTC `expires_at` can limit its lifetime; null means it stays valid until revoked.
+Changing a login password also requires updating its private card details. Rotating
+a card key invalidates its old QR code independently of the account password.
+
+The offline generator in `private/qr-tools/generate_qr_cards.py` uses the local
+Segno and zxing-cpp packages; they are not runtime website dependencies. It creates
+labelled PNG/SVG cards and a printable PDF and verifies the PNGs with an independent
+decoder. Its configuration, key links, and output all remain in `private/`.

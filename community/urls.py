@@ -1,8 +1,10 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
-from . import views
+from . import credential_cards, views
 
 urlpatterns = [
+    path("access-card/", credential_cards.access_card, name="access_card"),
+    path("api/access-card/", credential_cards.access_card_api, name="access_card_api"),
     path("", views.home, name="home"),
     path("live/", views.live, name="live"),
     path("login/", views.JayLoginView.as_view(), name="login"),

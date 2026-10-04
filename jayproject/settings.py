@@ -131,3 +131,11 @@ STUN_URLS = [url.strip() for url in os.environ.get("JAY_STUN_URLS", "").split(",
 TURN_URLS = [url.strip() for url in os.environ.get("JAY_TURN_URLS", "").split(",")
              if url.strip().startswith(("turn:", "turns:"))]
 TURN_SHARED_SECRET = os.environ.get("JAY_TURN_SHARED_SECRET", "")
+
+# QR login cards are configured privately; production remains disabled by default.
+ACCESS_CARDS_FILE = os.environ.get(
+    "JAY_ACCESS_CARDS_FILE",
+    "" if IS_PRODUCTION else str(PRIVATE_DIR / "access-cards.json"),
+).strip()
+# Protect sensitive responses, including HTTPS redirects and CSRF failures.
+MIDDLEWARE.insert(0, "community.credential_cards.AccessCardProtectionMiddleware")
