@@ -137,9 +137,9 @@ Windows runtime runs the local compatibility check and skips production checks
 because it does not include the hosting packages.
 
 For production validation, set the hosting environment and run
-`python manage.py check --deploy`. Real PostgreSQL migrations, Gunicorn startup
-on Render. The four-account import and HTTPS sign-ins were verified on
-2026-10-04. An end-to-end live broadcast and playback session still need
+`python manage.py check --deploy`. PostgreSQL migrations, Gunicorn startup
+on Render, the four-account import, and all four HTTPS sign-ins were verified
+on 2026-10-04. An end-to-end live broadcast and playback session still need
 validation on the hosted service.
 
 
