@@ -1,0 +1,18 @@
+/* Enhance normal navigation without replacing page content or scripts. */
+@view-transition{navigation:auto}
+::view-transition-group(root){animation:none}
+::view-transition-image-pair(root){isolation:isolate}
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.jay-page-transition::view-transition-new(root){z-index:1;animation:jay-page-enter 480ms cubic-bezier(.333333,0,.666667,1) both}
+html.jay-page-transition::view-transition-old(root){z-index:0;mask-image:linear-gradient(black,black),linear-gradient(black,black);mask-repeat:no-repeat;mask-composite:exclude;-webkit-mask-composite:xor;animation:jay-page-leave 480ms cubic-bezier(.333333,0,.666667,1) both}
+@keyframes jay-page-enter{
+  from{clip-path:polygon(var(--jay-page-x) var(--jay-page-y),var(--jay-page-x) var(--jay-page-y),var(--jay-page-x) var(--jay-page-y),var(--jay-page-x) var(--jay-page-y))}
+  to{clip-path:polygon(var(--jay-page-left) var(--jay-page-top),var(--jay-page-right) var(--jay-page-top),var(--jay-page-right) var(--jay-page-bottom),var(--jay-page-left) var(--jay-page-bottom))}
+}
+@keyframes jay-page-leave{
+  from{mask-size:100% 100%,0px 0px;mask-position:0px 0px,var(--jay-page-x) var(--jay-page-y)}
+  to{mask-size:100% 100%,var(--jay-page-width) var(--jay-page-height);mask-position:0px 0px,var(--jay-page-left) var(--jay-page-top)}
+}
+@media(prefers-reduced-motion:reduce){
+  html:not(.jay-motion-user-enabled).jay-page-transition::view-transition-old(root),html:not(.jay-motion-user-enabled).jay-page-transition::view-transition-new(root){animation:none}
+}
