@@ -6,8 +6,9 @@
   const first=cross.querySelector('.cross-one'),second=cross.querySelector('.cross-two'),dot=cross.querySelector('circle');
   const rest={x:.66,y:.5};
   const transition=window.JayPageTransition || {point:{...rest},motion:true,chosen:false,holding:false};
-  let current={...transition.point},target={...current},frame=0,lastTime=0,running=true;
+  let current={...transition.point},target={...(transition.target || current)},frame=0,lastTime=0,running=true;
   const lag=150;
+  const cursorHalfBox=9.5; // Half the visible 19px arrow height.
   function paint(){
     const width=cross.clientWidth,height=cross.clientHeight;
     if(!width || !height)return;
@@ -41,14 +42,14 @@
     if(!enabled){stop();current={...rest};target={...rest};}
     paint();
   }
-  transition.pointer={freeze:stop,setPoint(point){stop();current={...point};target={...point};paint();},resume:requestPaint};
+  transition.pointer={freeze:stop,getTarget:()=>({...target}),setPoint(point,nextTarget=point){stop();current={...point};target={...nextTarget};paint();},resume:requestPaint};
   toggles.forEach(toggle=>toggle.addEventListener('click',()=>setMotion(!transition.motion,true)));
   function rememberPointer(event){
     if(!transition.motion || event.pointerType==='touch')return;
     const bounds=cross.getBoundingClientRect();
-    const x=Math.max(0,Math.min(1,(event.clientX-bounds.left)/bounds.width));
-    const y=Math.max(0,Math.min(1,(event.clientY-bounds.top)/bounds.height));
-    target={x:rest.x+(x-rest.x)*.9,y:rest.y+(y-rest.y)*.9};requestPaint();
+    const x=Math.max(0,Math.min(1,(event.clientX-bounds.left+cursorHalfBox)/bounds.width));
+    const y=Math.max(0,Math.min(1,(event.clientY-bounds.top-cursorHalfBox)/bounds.height));
+    target={x,y};requestPaint();
   }
   document.addEventListener('pointermove',rememberPointer);
   document.addEventListener('pointerdown',rememberPointer);

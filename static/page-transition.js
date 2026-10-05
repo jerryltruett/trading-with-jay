@@ -9,12 +9,13 @@
   function read(key){try{return sessionStorage.getItem(key);}catch{return null;}}
   function write(key,value){try{sessionStorage.setItem(key,value);}catch{/* Keep normal navigation. */}}
   function remove(key){try{sessionStorage.removeItem(key);}catch{}}
+  function isPoint(value){return value && Number.isFinite(value.x) && Number.isFinite(value.y) && value.x>=0 && value.x<=1 && value.y>=0 && value.y<=1;}
   function takeTransfer(){
     const raw=read(transferKey);remove(transferKey);
     if(!raw)return null;
     try{
       const value=JSON.parse(raw),age=Date.now()-value.time;
-      if(value.path!==location.pathname || !pages.has(value.path) || age<0 || age>4000 || !Number.isFinite(value.x) || !Number.isFinite(value.y) || value.x<0 || value.x>1 || value.y<0 || value.y>1)return null;
+      if(!isPoint(value) || value.path!==location.pathname || !pages.has(value.path) || age<0 || age>4000 || (value.target!==undefined && !isPoint(value.target)))return null;
       return value;
     }catch{return null;}
   }
@@ -22,6 +23,7 @@
   let initial=takeTransfer(),activeTransition=null,formNavigation=false;
   const state=window.JayPageTransition={
     point:initial?{x:initial.x,y:initial.y}:{...rest},
+    target:initial?.target?{...initial.target}:null,
     motion:preference!=='off',
     chosen:preference==='on' || preference==='off',holding:Boolean(initial && supported),pointer:null,
     setMotion(enabled,chosen=false){
@@ -42,15 +44,16 @@
       event.viewTransition?.skipTransition();return;
     }
     state.holding=true;state.pointer?.freeze();
-    write(transferKey,JSON.stringify({x:state.point.x,y:state.point.y,path,time:Date.now()}));
+    write(transferKey,JSON.stringify({x:state.point.x,y:state.point.y,target:state.pointer?.getTarget?.() || state.point,path,time:Date.now()}));
   });
   window.addEventListener('pagereveal',event=>{
     const incoming=takeTransfer() || initial;initial=null;
     const choice=read(preferenceKey);
     state.chosen=choice==='on' || choice==='off';
     state.setMotion(choice!=='off');
-    if(incoming)state.point={x:incoming.x,y:incoming.y};
-    state.pointer?.setPoint(state.point);
+    if(incoming){state.point={x:incoming.x,y:incoming.y};state.target=incoming.target?{...incoming.target}:null;}
+    const target=incoming?(state.target || state.point):(state.pointer?.getTarget?.() || state.target || state.point);
+    state.pointer?.setPoint(state.point,target);
     const transition=event.viewTransition;
     if(!transition || !supported || !incoming || !state.motion || !pages.has(location.pathname)){
       transition?.skipTransition();state.holding=false;state.pointer?.resume();return;
