@@ -12,11 +12,11 @@
 </div>
 {% endblock %}
 {% block nav-global %}{% if user.is_authenticated and user.is_staff %}<a class="jay-admin-home" href="{% url 'live' %}">Broadcast studio ↗</a>{% endif %}{% endblock %}
-{% block extrahead %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin-theme.css' %}?v=city-system-10"><link rel="stylesheet" href="{% static 'auth-actions.css' %}?v=auth-actions-18"><link rel="stylesheet" href="{% static 'cursor.css' %}?v=lime-cursor-02"><script src="{% static 'page-transition.js' %}?v=cursor-corner-17"></script>{% endblock %}
+{% block extrahead %}{{ block.super }}<link rel="stylesheet" href="{% static 'admin-theme.css' %}?v=city-system-10"><link rel="stylesheet" href="{% static 'auth-actions.css' %}?v=auth-actions-18"><link rel="stylesheet" href="{% static 'cursor.css' %}?v=lime-cursor-02"><script src="{% static 'page-transition.js' %}?v=touch-motion-19"></script>{% endblock %}
 {% block footer %}{{ block.super }}<div class="jay-admin-footer"><button type="button" data-motion-toggle aria-pressed="true">Motion: on</button><span>A DIFFERENT VIEW OF THE MARKET.</span></div>{% endblock %}
 {% block extrabody %}{{ block.super }}
 <div class="city-backdrop" aria-hidden="true"><div class="city-background"></div><div class="city-light"></div></div>
 <svg class="pointer-cross" aria-hidden="true" focusable="false" preserveAspectRatio="none"><path class="cross-one"></path><path class="cross-two"></path><circle r="4"></circle></svg>
-<script src="{% static 'motion.js' %}?v=cursor-corner-17" defer></script>
+<script src="{% static 'motion.js' %}?v=touch-motion-19" defer></script>
 <script src="{% static 'admin-theme.js' %}?v=city-system-10" defer></script>
 {% endblock %}

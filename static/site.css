@@ -50,3 +50,10 @@ html{scroll-padding-top:112px}
  .homepage.signed-out .site-nav{gap:8px}
  .homepage.signed-out :is(#main,#inside,#jay,#notebook){scroll-margin-top:35px}
 }
+
+/* Mobile headers can wrap; keep Explore inside the viewport in either account state. */
+@media(max-width:800px){
+ .header-inner{position:relative}
+ .nav-menu{position:static}
+ .nav-menu-panel{left:19px;right:auto;top:calc(100% + 9px);width:min(235px,calc(100% - 38px))}
+}

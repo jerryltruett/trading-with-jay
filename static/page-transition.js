@@ -15,7 +15,7 @@
     if(!raw)return null;
     try{
       const value=JSON.parse(raw),age=Date.now()-value.time;
-      if(!isPoint(value) || value.path!==location.pathname || !pages.has(value.path) || age<0 || age>4000 || (value.target!==undefined && !isPoint(value.target)))return null;
+      if(!isPoint(value) || value.path!==location.pathname || !pages.has(value.path) || age<0 || age>4000 || (value.target!==undefined && !isPoint(value.target)) || (value.inputMode!==undefined && ![null,'cursor','touch'].includes(value.inputMode)))return null;
       return value;
     }catch{return null;}
   }
@@ -24,6 +24,7 @@
   const state=window.JayPageTransition={
     point:initial?{x:initial.x,y:initial.y}:{...rest},
     target:initial?.target?{...initial.target}:null,
+    inputMode:initial?.inputMode || null,
     motion:preference!=='off',
     chosen:preference==='on' || preference==='off',holding:Boolean(initial && supported),pointer:null,
     setMotion(enabled,chosen=false){
@@ -44,14 +45,14 @@
       event.viewTransition?.skipTransition();return;
     }
     state.holding=true;state.pointer?.freeze();
-    write(transferKey,JSON.stringify({x:state.point.x,y:state.point.y,target:state.pointer?.getTarget?.() || state.point,path,time:Date.now()}));
+    write(transferKey,JSON.stringify({x:state.point.x,y:state.point.y,target:state.pointer?.getTarget?.() || state.point,inputMode:state.inputMode,path,time:Date.now()}));
   });
   window.addEventListener('pagereveal',event=>{
     const incoming=takeTransfer() || initial;initial=null;
     const choice=read(preferenceKey);
     state.chosen=choice==='on' || choice==='off';
     state.setMotion(choice!=='off');
-    if(incoming){state.point={x:incoming.x,y:incoming.y};state.target=incoming.target?{...incoming.target}:null;}
+    if(incoming){state.point={x:incoming.x,y:incoming.y};state.target=incoming.target?{...incoming.target}:null;state.inputMode=incoming.inputMode || null;}
     const target=incoming?(state.target || state.point):(state.pointer?.getTarget?.() || state.target || state.point);
     state.pointer?.setPoint(state.point,target);
     const transition=event.viewTransition;

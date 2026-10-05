@@ -9,6 +9,9 @@
   let current={...transition.point},target={...(transition.target || current)},frame=0,lastTime=0,running=true;
   const lag=150;
   const cursorHalfBox=9.5; // Half the visible 19px arrow height.
+  const cursorPriorityMs=250,tapDistance=10,tapDuration=600;
+  let lastCursorAt=-Infinity,tap=null;
+  const touches=new Set();
   function paint(){
     const width=cross.clientWidth,height=cross.clientHeight;
     if(!width || !height)return;
@@ -39,24 +42,60 @@
     else{transition.motion=enabled;if(chosen)transition.chosen=true;}
     scene.classList.toggle('motion-enabled',enabled);
     toggles.forEach(toggle=>{toggle.textContent=enabled?'Motion: on':'Motion: off';toggle.setAttribute('aria-pressed',String(enabled));});
-    if(!enabled){stop();current={...rest};target={...rest};}
+    if(!enabled){stop();tap=null;touches.clear();current={...rest};target={...rest};}
     paint();
   }
   transition.pointer={freeze:stop,getTarget:()=>({...target}),setPoint(point,nextTarget=point){stop();current={...point};target={...nextTarget};paint();},resume:requestPaint};
   toggles.forEach(toggle=>toggle.addEventListener('click',()=>setMotion(!transition.motion,true)));
-  function rememberPointer(event){
-    if(!transition.motion || event.pointerType==='touch')return;
+  function cursorHasPriority(){return performance.now()-lastCursorAt<cursorPriorityMs;}
+  function aim(event,offset=0){
     const bounds=cross.getBoundingClientRect();
-    const x=Math.max(0,Math.min(1,(event.clientX-bounds.left+cursorHalfBox)/bounds.width));
-    const y=Math.max(0,Math.min(1,(event.clientY-bounds.top-cursorHalfBox)/bounds.height));
+    if(!bounds.width || !bounds.height)return;
+    const x=Math.max(0,Math.min(1,(event.clientX-bounds.left+offset)/bounds.width));
+    const y=Math.max(0,Math.min(1,(event.clientY-bounds.top-offset)/bounds.height));
     target={x,y};requestPaint();
   }
-  document.addEventListener('pointermove',rememberPointer);
-  document.addEventListener('pointerdown',rememberPointer);
-  document.addEventListener('pointerleave',()=>{if(transition.motion){target={...rest};requestPaint();}});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else requestPaint();});
+  function rememberPointer(event){
+    if(!transition.motion || event.pointerType==='touch')return;
+    lastCursorAt=performance.now();transition.inputMode='cursor';tap=null;
+    aim(event,cursorHalfBox);
+  }
+  function startPointer(event){
+    if(event.pointerType!=='touch'){rememberPointer(event);return;}
+    touches.add(event.pointerId);
+    if(!transition.motion || !event.isPrimary || touches.size!==1 || cursorHasPriority()){tap=null;return;}
+    tap={id:event.pointerId,x:event.clientX,y:event.clientY,time:performance.now()};
+  }
+  function movePointer(event){
+    if(event.pointerType!=='touch'){rememberPointer(event);return;}
+    if(tap?.id===event.pointerId && Math.hypot(event.clientX-tap.x,event.clientY-tap.y)>tapDistance)tap=null;
+  }
+  function endPointer(event){
+    if(event.pointerType!=='touch')return;
+    touches.delete(event.pointerId);
+    if(tap?.id!==event.pointerId)return;
+    const candidate=tap;tap=null;
+    if(!transition.motion || touches.size || cursorHasPriority() || performance.now()-candidate.time>tapDuration || Math.hypot(event.clientX-candidate.x,event.clientY-candidate.y)>tapDistance)return;
+    transition.inputMode='touch';aim(event);
+  }
+  function cancelPointer(event){
+    if(event.pointerType!=='touch')return;
+    touches.delete(event.pointerId);tap=null;
+  }
+  // Observe taps without capturing the pointer or interfering with native scrolling.
+  document.addEventListener('pointermove',movePointer,{passive:true});
+  document.addEventListener('pointerdown',startPointer,{passive:true});
+  document.addEventListener('pointerup',endPointer,{passive:true});
+  document.addEventListener('pointercancel',cancelPointer,{passive:true});
+  document.addEventListener('contextmenu',()=>{tap=null;},{passive:true});
+  document.addEventListener('pointerleave',event=>{
+    if(event.pointerType==='touch')return;
+    lastCursorAt=-Infinity;
+    if(transition.motion && transition.inputMode==='cursor'){transition.inputMode=null;target={...rest};requestPaint();}
+  });
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){tap=null;touches.clear();stop();}else requestPaint();});
   window.addEventListener('resize',paint);
-  window.addEventListener('pagehide',()=>{running=false;stop();});
+  window.addEventListener('pagehide',()=>{running=false;tap=null;touches.clear();stop();});
   window.addEventListener('pageshow',()=>{running=true;setMotion(transition.motion);requestPaint();});
   setMotion(transition.motion);
 })();
