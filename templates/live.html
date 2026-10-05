@@ -76,8 +76,8 @@
 
     <section class="panel studio-discussion" aria-label="Session conversation and notes">
       <div class="studio-tabs" role="tablist" aria-label="Session panels">
-        <button id="studio-chat-tab" type="button" role="tab" aria-selected="true" aria-controls="session-chat" tabindex="0">Session chat <span aria-hidden="true">↗</span></button>
-        <button id="studio-notes-tab" type="button" role="tab" aria-selected="false" aria-controls="session-notes" tabindex="-1">Session notes <span aria-hidden="true">↗</span></button>
+        <button id="studio-chat-tab" type="button" role="tab" aria-selected="true" aria-controls="session-chat" tabindex="0"><span aria-hidden="true">{% include 'includes/channel_icon.html' with kind='chat' only %}</span> Session chat</button>
+        <button id="studio-notes-tab" type="button" role="tab" aria-selected="false" aria-controls="session-notes" tabindex="-1"><span aria-hidden="true">{% include 'includes/channel_icon.html' with kind='pen' only %}</span> Session notes</button>
       </div>
       <div id="session-chat" class="studio-panel" role="tabpanel" aria-labelledby="studio-chat-tab">
         {% if user.is_authenticated %}
@@ -110,11 +110,11 @@
     <div class="studio-community-brand"><span aria-hidden="true">J.</span><div><strong>Trading with Jay</strong><p>The community</p></div></div>
     <p class="page-kicker">Live room</p>
     <a class="studio-channel is-active" href="#studio-stage" aria-current="page"><span aria-hidden="true">◉</span> live-with-jay</a>
-    <button class="studio-channel" type="button" data-studio-panel="chat"><span aria-hidden="true">#</span> session-chat</button>
-    <button class="studio-channel" type="button" data-studio-panel="notes"><span aria-hidden="true">#</span> session-notes</button>
+    <button class="studio-channel" type="button" data-studio-panel="chat"><span aria-hidden="true">{% include 'includes/channel_icon.html' with kind='chat' only %}</span> session-chat</button>
+    <button class="studio-channel" type="button" data-studio-panel="notes"><span aria-hidden="true">{% include 'includes/channel_icon.html' with kind='pen' only %}</span> session-notes</button>
     <p class="page-kicker">Keep learning</p>
     <a class="studio-channel" href="{% url 'members' %}"><span aria-hidden="true">#</span> member-lounge</a>
-    <a class="studio-channel" href="/library/"><span aria-hidden="true">#</span> lesson-library</a>
+    <a class="studio-channel" href="{% url 'library' %}"><span aria-hidden="true">{% include 'includes/channel_icon.html' with kind='bookshelf' only %}</span> lesson-library</a>
     <a class="studio-channel" href="{% url 'home' %}#jay"><span aria-hidden="true">↗</span> meet-jay</a>
     <div class="studio-community-note"><span class="studio-dot" aria-hidden="true"></span><p>One place to watch, ask questions, and keep learning.</p></div>
   </aside>
