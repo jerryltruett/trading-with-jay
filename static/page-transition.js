@@ -1,7 +1,6 @@
 /* Register pagereveal in the head, before the first rendering. */
 (() => {
   const root=document.documentElement;
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const transferKey='jay.page-transition',preferenceKey='jay.motion-choice';
   const rest={x:.66,y:.5};
   const pages=new Set(['/','/login/','/join/','/members/','/library/','/live/']);
@@ -23,12 +22,12 @@
   let initial=takeTransfer(),activeTransition=null,formNavigation=false;
   const state=window.JayPageTransition={
     point:initial?{x:initial.x,y:initial.y}:{...rest},
-    motion:preference==='on' || (preference!=='off' && !reduced.matches),
+    motion:preference!=='off',
     chosen:preference==='on' || preference==='off',holding:Boolean(initial && supported),pointer:null,
     setMotion(enabled,chosen=false){
       state.motion=enabled;
       if(chosen){state.chosen=true;write(preferenceKey,enabled?'on':'off');}
-      root.classList.toggle('jay-motion-user-enabled',state.chosen && enabled);
+      root.classList.toggle('jay-motion-enabled',enabled);
       if(!enabled)activeTransition?.skipTransition();
     }
   };
@@ -49,7 +48,7 @@
     const incoming=takeTransfer() || initial;initial=null;
     const choice=read(preferenceKey);
     state.chosen=choice==='on' || choice==='off';
-    state.setMotion(choice==='on' || (choice!=='off' && !reduced.matches));
+    state.setMotion(choice!=='off');
     if(incoming)state.point={x:incoming.x,y:incoming.y};
     state.pointer?.setPoint(state.point);
     const transition=event.viewTransition;

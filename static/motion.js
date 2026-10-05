@@ -4,9 +4,8 @@
   const toggles=document.querySelectorAll('[data-motion-toggle]');
   if(!scene || !cross || !toggles.length)return;
   const first=cross.querySelector('.cross-one'),second=cross.querySelector('.cross-two'),dot=cross.querySelector('circle');
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const rest={x:.66,y:.5};
-  const transition=window.JayPageTransition || {point:{...rest},motion:!reduced.matches,chosen:false,holding:false};
+  const transition=window.JayPageTransition || {point:{...rest},motion:true,chosen:false,holding:false};
   let current={...transition.point},target={...current},frame=0,lastTime=0,running=true;
   const lag=150;
   function paint(){
@@ -55,7 +54,6 @@
   document.addEventListener('pointerdown',rememberPointer);
   document.addEventListener('pointerleave',()=>{if(transition.motion){target={...rest};requestPaint();}});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else requestPaint();});
-  reduced.addEventListener('change',()=>{if(!transition.chosen)setMotion(!reduced.matches);});
   window.addEventListener('resize',paint);
   window.addEventListener('pagehide',()=>{running=false;stop();});
   window.addEventListener('pageshow',()=>{running=true;setMotion(transition.motion);requestPaint();});
