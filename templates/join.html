@@ -25,7 +25,7 @@
       {% for field in form %}<div class="form-field">{{ field.label_tag }}{{ field }}{% if field.help_text %}<div class="help-text">{{ field.help_text|safe }}</div>{% endif %}{{ field.errors }}</div>{% endfor %}
       <button class="jay-button" type="submit">Join the community <span aria-hidden="true">↗</span></button>
     </form>
-    <p class="auth-switch">Already a member? <a href="{% url 'login' %}">Sign in →</a></p>
+    <p class="auth-switch">Already a member? <a class="auth-action" href="{% url 'login' %}">Sign in</a></p>
   </section>
 </div>
 {% endblock %}

@@ -42,17 +42,11 @@
 html{scroll-padding-top:112px}
 @media(max-width:800px){html{scroll-padding-top:98px}}
 
-/* A compact companion to the homepage's Join the room button. */
-.homepage .nav-signin{border-radius:8px;display:inline-flex;align-items:center;justify-content:space-between;gap:10px;min-height:34px;padding:7px 11px;background:var(--lime);border:1px solid var(--lime);color:var(--ink);font-size:.69rem;font-weight:750;line-height:1.4;transition:background .18s,transform .18s}
-.homepage .nav-signin::after{content:'↗';font-size:1rem;line-height:1}
-.homepage .nav-signin:hover{background:#dbff95;border-color:#dbff95;transform:translateY(-2px)}
 @media(max-width:800px){
  .homepage.signed-out .header-inner{flex-wrap:wrap;row-gap:12px}
  .homepage.signed-out .site-nav{flex-wrap:wrap;justify-content:flex-end;gap:10px;margin-left:auto}
- .homepage .nav-signin{font-size:.63rem;padding:7px 10px}
 }
 @media(max-width:430px){
  .homepage.signed-out .site-nav{gap:8px}
- .homepage .nav-signin{font-size:.6rem;padding:7px 9px;gap:7px}
  .homepage.signed-out :is(#main,#inside,#jay,#notebook){scroll-margin-top:35px}
 }

@@ -7,9 +7,10 @@
   <meta name="referrer" content="no-referrer">
   <meta name="theme-color" content="#101213">
   <title>Private login card · Trading with Jay</title>
-  <link rel="stylesheet" href="{% static 'site.css' %}?v=sign-in-button-14">
+  <link rel="stylesheet" href="{% static 'site.css' %}?v=auth-actions-18">
   <link rel="stylesheet" href="{% static 'city-theme.css' %}?v=city-system-09">
   <link rel="stylesheet" href="{% static 'access-card.css' %}?v=1">
+  <link rel="stylesheet" href="{% static 'auth-actions.css' %}?v=auth-actions-18">
   <script src="{% static 'access-card.js' %}?v=2" defer></script>
 </head>
 <body class="city-page access-page">
@@ -31,7 +32,7 @@
       <h2 id="card-title">Private login.</h2>
       <p id="card-status" role="status" aria-live="polite">Open your labelled QR code to view the login details.</p>
       <div id="card-accounts" class="access-accounts" hidden></div>
-      <a id="card-signin" class="jay-button access-signin" href="{% url 'login' %}" hidden>Continue to sign in <span aria-hidden="true">↗</span></a>
+      <a id="card-signin" class="auth-action auth-action-wide access-signin" href="{% url 'login' %}" hidden>Continue to sign in</a>
       <noscript><p>Enable JavaScript to open this private login card.</p></noscript>
     </section>
     <div id="card-csrf" hidden>{% csrf_token %}</div>

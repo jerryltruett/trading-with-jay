@@ -75,7 +75,7 @@
         </form>
         <p class="studio-chat-help" id="studio-chat-help">Chat opens during a live session. Keep it helpful and respectful.</p>
         {% else %}
-        <div class="studio-member-prompt"><p class="page-kicker">Watch and take part</p><h3>Join the session.</h3><p>Create your account to watch live sessions and join the chat.</p><a class="jay-button" href="{% url 'join' %}">Join the community <span aria-hidden="true">↗</span></a><a class="studio-text-link" href="{% url 'login' %}">Already a member? Sign in</a></div>
+        <div class="studio-member-prompt"><p class="page-kicker">Watch and take part</p><h3>Join the session.</h3><p>Create your account to watch live sessions and join the chat.</p><a class="jay-button" href="{% url 'join' %}">Join the community <span aria-hidden="true">↗</span></a><a class="auth-action" href="{% url 'login' %}">Already a member? Sign in</a></div>
         {% endif %}
       </div>
       <div id="session-notes" class="studio-panel" role="tabpanel" aria-labelledby="studio-notes-tab" hidden>
