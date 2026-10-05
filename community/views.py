@@ -163,7 +163,6 @@ def library_lessons():
 @login_required
 def library(request):
     context = common_context(request)
-    context["lessons"] = library_lessons()
     return render(request, "library.html", context)
 
 
