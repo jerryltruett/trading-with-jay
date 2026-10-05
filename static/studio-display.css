@@ -1,0 +1,89 @@
+.studio-display-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .65rem 1rem;
+  margin-top: .85rem;
+}
+
+.studio-display-actions .jay-button {
+  min-height: 44px;
+}
+
+.studio-fullscreen-status {
+  margin: 0;
+  color: #bdc9c2;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+.studio-fullscreen-status.is-error {
+  color: #ffb4a8;
+}
+
+.studio-control-row .jay-button {
+  max-width: 100%;
+  min-height: 44px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.studio-share-options {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #c1d4ca70;
+  border-radius: 2px;
+  background: rgb(16 18 19 / 20%);
+}
+
+.studio-share-options[hidden] {
+  display: none;
+}
+
+.studio-host-controls .studio-share-options > p {
+  margin: 0;
+  color: #dce6df;
+}
+
+.studio-host-controls .studio-share-options > .studio-share-help {
+  margin-top: .8rem;
+  color: #c5d1c9;
+  font-size: .75rem;
+}
+
+.studio-host-controls .studio-screen-support {
+  margin: 1rem 0 0;
+  color: #c5d1c9;
+  font-size: .75rem;
+}
+
+#studio-main-video:fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  background: #000;
+  border: 0;
+  border-radius: 0;
+}
+
+#studio-main-video:-webkit-full-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  background: #000;
+  border: 0;
+  border-radius: 0;
+}
+
+#studio-main-video::backdrop {
+  background: #000;
+}

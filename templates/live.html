@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Live with Jay · Trading with Jay{% endblock %}
 {% block body_class %}city-page city-studio{% endblock %}
-{% block head %}{{ block.super }}<link rel="stylesheet" href="{% static 'member-theme.css' %}?v=city-system-09">{% endblock %}
+{% block head %}{{ block.super }}<link rel="stylesheet" href="{% static 'member-theme.css' %}?v=city-system-09"><link rel="stylesheet" href="{% static 'studio-display.css' %}?v=live-display-20">{% endblock %}
 {% block content %}
 <section class="jay-wrap studio-heading">
   <div>
@@ -28,6 +28,10 @@
         </div>
         <span class="studio-video-label" id="studio-video-label" hidden>Private preview</span>
       </div>
+      <div class="studio-display-actions">
+        <button class="jay-button jay-button-secondary" id="studio-fullscreen" type="button" disabled aria-pressed="false" aria-controls="studio-main-video">Full screen</button>
+        <p class="studio-fullscreen-status" id="studio-fullscreen-status" role="status" aria-live="polite" hidden></p>
+      </div>
       <div class="studio-session-meta">
         <div><p class="page-kicker">Live camera or screen share</p><h2 id="studio-session-title">Trading with Jay — live session</h2></div>
         <p class="studio-host-name" id="studio-host-name">Hosted by Jay</p>
@@ -50,12 +54,23 @@
       <div class="studio-title-row"><input id="studio-title-input" type="text" maxlength="120" value="Trading with Jay — live session" autocomplete="off"><button class="jay-button jay-button-secondary" id="studio-save-title" type="button" disabled>Update title</button></div>
       <div class="studio-control-row">
         <button class="jay-button jay-button-secondary" id="studio-camera" type="button">Enable camera &amp; mic</button>
-        <button class="jay-button jay-button-secondary" id="studio-screen" type="button">Share screen</button>
+        <button class="jay-button jay-button-secondary" id="studio-screen" type="button" aria-expanded="false" aria-controls="studio-share-options">Share screen</button>
+        <button class="jay-button jay-button-secondary" id="studio-screen-change" type="button" aria-expanded="false" aria-controls="studio-share-options" hidden>Change shared source</button>
         <button class="jay-button jay-button-secondary" id="studio-mic" type="button" disabled aria-pressed="false">Mute microphone</button>
         <button class="jay-button" id="studio-start" type="button" disabled>Go live</button>
         <button class="jay-button jay-button-secondary" id="studio-stop" type="button" disabled>End broadcast</button>
       </div>
-      <p class="studio-control-help">Camera and screen access begin only when you choose a control. Your preview stays private until you select Go live. Screen sharing replaces your camera in the broadcast; the small camera preview is visible only to you. Your camera microphone stays on unless you mute it. Audio from other apps is not shared.</p>
+      <div class="studio-share-options" id="studio-share-options" role="group" aria-label="Choose what to share" hidden>
+        <p>Choose what to share.</p>
+        <div class="studio-control-row">
+          <button class="jay-button jay-button-secondary" id="studio-share-monitor" type="button">Share my screen</button>
+          <button class="jay-button jay-button-secondary" id="studio-share-window" type="button">Share screen of specific app</button>
+          <button class="jay-button jay-button-secondary" id="studio-share-cancel" type="button">Cancel</button>
+        </div>
+        <p class="studio-share-help">Your browser will ask you to select the screen, app window, or tab to share.</p>
+      </div>
+      <p class="studio-screen-support" id="studio-screen-support" role="status" hidden></p>
+      <p class="studio-control-help">Camera and screen access begin only when you choose a control. Your preview stays private until you select Go live. Screen sharing replaces your camera in the broadcast; the small camera preview is visible only to you. Your camera microphone stays on unless you mute it. Enable camera &amp; mic for your voice during a screen share. Audio from other apps is not shared.</p>
     </section>
     {% endif %}
 
@@ -106,4 +121,4 @@
 </div>
 {{ ice_servers|json_script:"studio-ice-servers" }}
 {% endblock %}
-{% block scripts %}{{ block.super }}<script src="{% static 'studio.js' %}" defer></script>{% endblock %}
+{% block scripts %}{{ block.super }}<script src="{% static 'studio.js' %}?v=live-display-20" defer></script><script src="{% static 'studio-display.js' %}?v=live-display-20" defer></script>{% endblock %}

@@ -9,6 +9,15 @@
   const cameraVideo = $('studio-camera-video');
   const cameraButton = $('studio-camera');
   const screenButton = $('studio-screen');
+  const screenChangeButton = $('studio-screen-change');
+  const shareOptions = $('studio-share-options');
+  const shareMonitorButton = $('studio-share-monitor');
+  const shareWindowButton = $('studio-share-window');
+  const shareCancelButton = $('studio-share-cancel');
+  const screenSharingSupported = Boolean(window.isSecureContext && navigator.mediaDevices?.getDisplayMedia);
+  const screenSupportMessage = !window.isSecureContext
+    ? 'Screen sharing needs a secure HTTPS address or a localhost preview.'
+    : 'Screen sharing is not supported in this browser. iPhone and Android browsers do not currently support it. You can stream your camera here, or share a screen from a supported desktop browser.';
   const microphoneButton = $('studio-mic');
   const startButton = $('studio-start');
   const stopButton = $('studio-stop');
@@ -51,6 +60,9 @@
   let signalPolling = null;
   let busy = false;
   let remoteStream = null;
+  let mediaGeneration = 0;
+  let screenOperations = 0;
+  let sourceSwitch = null;
 
   function csrf() {
     return document.querySelector('[name=csrfmiddlewaretoken]')?.value || document.cookie.split('; ').find((part) => part.startsWith('csrftoken='))?.slice(10) || '';
@@ -85,6 +97,21 @@
     if (error.name === 'NotReadableError') return 'Another app may be using your camera or microphone. Close it and try again.';
     return error.message || `${type} could not start. Please try again.`;
   }
+  function screenError(error) {
+    if (!screenSharingSupported) return screenSupportMessage;
+    if (error.name === 'NotAllowedError') return 'Screen sharing was cancelled or permission was not granted. Your current video stays unchanged.';
+    if (error.name === 'NotFoundError') return 'No shareable screen or app window was found. Open the app you want to share and try again.';
+    if (error.name === 'NotReadableError') return 'Your browser could not capture that screen or app window. Check your system’s screen recording permissions and try again.';
+    if (error.name === 'InvalidStateError') return 'Choose a sharing option again while this window is active.';
+    return error.message || 'Screen sharing could not start. Please try again.';
+  }
+  function setShareOptions(open, focus = false) {
+    if (!shareOptions) return;
+    shareOptions.hidden = !open;
+    screenButton?.setAttribute('aria-expanded', String(open));
+    screenChangeButton?.setAttribute('aria-expanded', String(open));
+    if (focus) (open ? (screenSharingSupported ? shareMonitorButton : shareCancelButton) : (screenStream ? screenChangeButton : screenButton))?.focus();
+  }
   function currentVideoTrack() {
     return screenStream?.getVideoTracks().find((track) => track.readyState === 'live') || cameraStream?.getVideoTracks().find((track) => track.readyState === 'live') || null;
   }
@@ -99,14 +126,25 @@
     if (!cameraVideo.hidden) cameraVideo.play().catch(() => {});
   }
   function updateControls() {
+    const controlsBusy = busy || screenOperations > 0;
     const hasVideo = Boolean(currentVideoTrack());
     if (cameraButton) {
       cameraButton.textContent = cameraStream ? 'Release camera & mic' : 'Enable camera & mic';
-      cameraButton.disabled = busy || isBroadcasting || isWatching;
+      cameraButton.disabled = controlsBusy || isBroadcasting || isWatching;
     }
     if (screenButton) {
       screenButton.textContent = screenStream ? 'Stop sharing screen' : 'Share screen';
-      screenButton.disabled = busy || isWatching;
+      screenButton.disabled = controlsBusy || isWatching;
+    }
+    if (screenChangeButton) {
+      screenChangeButton.hidden = !screenStream;
+      screenChangeButton.disabled = controlsBusy || isWatching;
+    }
+    for (const button of [shareMonitorButton, shareWindowButton]) if (button) button.disabled = controlsBusy || isWatching || !screenSharingSupported;
+    if (shareCancelButton) shareCancelButton.disabled = controlsBusy;
+    if ($('studio-screen-support')) {
+      $('studio-screen-support').hidden = screenSharingSupported;
+      $('studio-screen-support').textContent = screenSharingSupported ? '' : screenSupportMessage;
     }
     if (microphoneButton) {
       const audio = currentAudioTrack();
@@ -114,10 +152,10 @@
       microphoneButton.textContent = audio?.enabled ? 'Mute microphone' : 'Unmute microphone';
       microphoneButton.setAttribute('aria-pressed', String(Boolean(audio && !audio.enabled)));
     }
-    if (startButton) startButton.disabled = busy || !hasVideo || isBroadcasting || room.active;
-    if (stopButton) stopButton.disabled = busy || !(isBroadcasting || (room.active && room.is_host));
-    if (saveTitleButton) saveTitleButton.disabled = busy || !(isBroadcasting || (room.active && room.is_host));
-    if (watchButton) watchButton.disabled = busy || !room.active || isWatching || isBroadcasting;
+    if (startButton) startButton.disabled = controlsBusy || !hasVideo || isBroadcasting || room.active;
+    if (stopButton) stopButton.disabled = controlsBusy || !(isBroadcasting || (room.active && room.is_host));
+    if (saveTitleButton) saveTitleButton.disabled = controlsBusy || !(isBroadcasting || (room.active && room.is_host));
+    if (watchButton) watchButton.disabled = controlsBusy || !room.active || isWatching || isBroadcasting;
     if (leaveButton) leaveButton.hidden = !isWatching;
     if (watchButton) watchButton.hidden = isWatching;
     if ($('studio-viewer-controls')) $('studio-viewer-controls').hidden = canHost && (!room.active || room.is_host);
@@ -139,6 +177,7 @@
     }
     if ($('studio-viewer-hint')) $('studio-viewer-hint').textContent = isWatching ? 'You’re connected as a viewer. Your camera and microphone are off.' : room.active ? 'Your camera and microphone are not needed to watch.' : 'There isn’t an active broadcast yet.';
     if ($('studio-chat-help')) $('studio-chat-help').textContent = room.active ? 'Keep it helpful and respectful. Messages are visible to members in this session.' : 'Chat opens during a live session. Keep it helpful and respectful.';
+    document.dispatchEvent(new Event('studio:mediachange'));
   }
   function stopTracks(stream) { stream?.getTracks().forEach((track) => track.stop()); }
   function closePeers() {
@@ -151,6 +190,8 @@
     signalTimer = null;
   }
   function releaseMedia() {
+    mediaGeneration++;
+    setShareOptions(false);
     if (screenStream) screenStream.getVideoTracks().forEach((track) => { track.onended = null; });
     stopTracks(screenStream);
     stopTracks(cameraStream);
@@ -208,6 +249,9 @@
     if (!signalIsCurrent(context) || String(signal.session_id) !== String(context.sessionId) || signal.recipient !== context.peerId) return;
     const remotePeer = signal.sender;
     if (signal.kind === 'join' && isBroadcasting) {
+      // A joining viewer must receive the source that survives the current switch.
+      if (sourceSwitch) await sourceSwitch;
+      if (!signalIsCurrent(context)) return;
       if (peers.has(remotePeer)) return;
       const peer = makePeer(remotePeer, context);
       const tracks = [currentVideoTrack(), currentAudioTrack()].filter(Boolean);
@@ -279,10 +323,16 @@
   }
   async function endScreen() {
     if (!screenStream) return;
+    screenOperations++;
+    mediaGeneration++;
     screenStream.getVideoTracks().forEach((track) => { track.onended = null; });
     stopTracks(screenStream);
     screenStream = null;
-    await replaceVideoTrack();
+    updatePreview(); updateControls();
+    try {
+      if (sourceSwitch) await sourceSwitch;
+      if (!closing) await replaceVideoTrack();
+    } finally { screenOperations--; updateControls(); }
   }
   async function cameraAction() {
     if (isBroadcasting) return;
@@ -299,19 +349,63 @@
     } catch (error) { message(mediaError(error, 'Camera and microphone'), true); }
     finally { busy = false; updateControls(); }
   }
-  async function screenAction() {
+  async function screenAction(surface) {
+    if (busy || screenOperations || isWatching || closing) return;
+    if (!screenSharingSupported) { message(screenSupportMessage, true); return; }
+    const generation = mediaGeneration;
+    let candidate = null;
+    let finishSwitch = null;
+    screenOperations++;
     busy = true; updateControls(); message('');
+    setShareOptions(false);
     try {
-      if (screenStream) await endScreen();
-      else {
-        if (!navigator.mediaDevices?.getDisplayMedia) throw new Error('Screen sharing is unavailable in this browser.');
-        screenStream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: false});
-        screenStream.getVideoTracks().forEach((track) => { track.onended = () => endScreen().catch((error) => message(error.message, true)); });
-        await replaceVideoTrack();
-        message(isBroadcasting ? 'Your selected screen is now being broadcast.' : 'Your selected screen is in private preview. Select Go live when you’re ready.');
+      // The native picker must open directly from this click, before any other await.
+      // displaySurface is a preference; the browser still lets the person choose.
+      candidate = await navigator.mediaDevices.getDisplayMedia({video: {displaySurface: surface}, audio: false});
+      if (closing || generation !== mediaGeneration) { stopTracks(candidate); candidate = null; return; }
+      const track = candidate.getVideoTracks().find((item) => item.readyState === 'live');
+      if (!track) throw new Error('The selected source has no live video. Please choose another screen or app window.');
+      sourceSwitch = new Promise((resolve) => { finishSwitch = resolve; });
+      const senders = Array.from(peers, ([id, peer]) => ({id, peer, sender: peer.getSenders().find((item) => item.track?.kind === 'video')})).filter((item) => item.sender);
+      const restoreCurrentSource = async () => {
+        let restoredGeneration;
+        do {
+          restoredGeneration = mediaGeneration;
+          const fallback = currentVideoTrack();
+          const remaining = senders.filter(({id, peer}) => !closing && peers.get(id) === peer);
+          const rollback = await Promise.allSettled(remaining.map(({sender}) => sender.replaceTrack(fallback)));
+          rollback.forEach((result, index) => {
+            const {id, peer} = remaining[index];
+            if (result.status === 'rejected' && peers.get(id) === peer) {
+              peer.close(); peers.delete(id); pendingIce.delete(id);
+            }
+          });
+        } while (!closing && restoredGeneration !== mediaGeneration);
+      };
+      const replacements = await Promise.allSettled(senders.map(({sender}) => sender.replaceTrack(track)));
+      if (closing || generation !== mediaGeneration) {
+        await restoreCurrentSource();
+        stopTracks(candidate); candidate = null; return;
       }
-    } catch (error) { message(mediaError(error, 'Screen'), true); }
-    finally { busy = false; updateControls(); }
+      if (track.readyState !== 'live' || replacements.some((result) => result.status === 'rejected')) {
+        await restoreCurrentSource();
+        if (track.readyState !== 'live') throw new Error('The selected source closed before it could be shared. Your previous video was kept.');
+        throw new Error('The shared source could not change for every viewer. Your previous video was kept; disconnected viewers may need to rejoin.');
+      }
+      const previousScreen = screenStream;
+      const selected = candidate;
+      screenStream = selected;
+      candidate = null;
+      selected.getVideoTracks().forEach((item) => { item.onended = () => { if (screenStream === selected) endScreen().catch((error) => message(screenError(error), true)); }; });
+      previousScreen?.getVideoTracks().forEach((item) => { item.onended = null; });
+      stopTracks(previousScreen);
+      updatePreview();
+      message(isBroadcasting ? 'Your selected source is now being broadcast.' : 'Your selected source is in private preview. Select Go live when you’re ready.');
+    } catch (error) { stopTracks(candidate); if (!closing && generation === mediaGeneration) message(screenError(error), true); }
+    finally {
+      if (finishSwitch) { sourceSwitch = null; finishSwitch(); }
+      screenOperations--; busy = false; updateControls();
+    }
   }
   async function startBroadcast() {
     if (!currentVideoTrack()) return;
@@ -474,7 +568,16 @@
   });
   root.querySelectorAll('[data-studio-panel]').forEach((button) => button.addEventListener('click', () => { selectPanel(button.dataset.studioPanel); $(`studio-${button.dataset.studioPanel}-tab`).scrollIntoView({behavior: 'smooth', block: 'center'}); }));
   cameraButton?.addEventListener('click', cameraAction);
-  screenButton?.addEventListener('click', screenAction);
+  screenButton?.addEventListener('click', () => {
+    if (busy || isWatching || closing) return;
+    if (screenStream) endScreen().catch((error) => message(screenError(error), true));
+    else setShareOptions(shareOptions?.hidden !== false, true);
+  });
+  screenChangeButton?.addEventListener('click', () => { if (!busy && !isWatching) setShareOptions(shareOptions?.hidden !== false, true); });
+  shareMonitorButton?.addEventListener('click', () => screenAction('monitor'));
+  shareWindowButton?.addEventListener('click', () => screenAction('window'));
+  shareCancelButton?.addEventListener('click', () => setShareOptions(false, true));
+  shareOptions?.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !busy) { event.preventDefault(); setShareOptions(false, true); } });
   microphoneButton?.addEventListener('click', () => { const track = currentAudioTrack(); if (track) track.enabled = !track.enabled; updateControls(); });
   startButton?.addEventListener('click', startBroadcast);
   stopButton?.addEventListener('click', endBroadcast);
