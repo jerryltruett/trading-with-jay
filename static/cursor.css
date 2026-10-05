@@ -1,12 +1,12 @@
 /* Native-size cursors stay inside the site and need no tracking script. */
 @media (hover:hover) and (pointer:fine){
   body:is(.homepage,.city-page){
-    cursor:url('/static/cursors/arrow.svg?v=lime-cursor-01') 2 2,auto;
+    cursor:url('/static/cursors/arrow.svg?v=lime-cursor-02') 0 0,auto;
   }
   body:is(.homepage,.city-page) :is(a[href],button,summary,[role=button],[role=link],select,label[for],input[type=button],input[type=submit],input[type=reset],input[type=checkbox],input[type=radio],input[type=range],input[type=file]):not(:disabled){
-    cursor:url('/static/cursors/hand.svg?v=lime-cursor-01') 8 2,pointer;
+    cursor:url('/static/cursors/hand.svg?v=lime-cursor-02') 6 0,pointer;
   }
   body:is(.homepage,.city-page) :is(input:not([type]),input[type=text],input[type=password],input[type=email],input[type=search],input[type=tel],input[type=url],input[type=number],textarea,[contenteditable=true]):not(:disabled){
-    cursor:url('/static/cursors/text.svg?v=lime-cursor-01') 12 12,text;
+    cursor:url('/static/cursors/text.svg?v=lime-cursor-02') 15 16,text;
   }
 }
